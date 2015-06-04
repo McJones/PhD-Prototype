@@ -30,6 +30,7 @@
 {
     [super viewWillAppear:animated];
     COMMUNICATOR.delegate = self;
+//    [COMMUNICATOR testLocation:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated

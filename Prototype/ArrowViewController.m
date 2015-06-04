@@ -17,6 +17,7 @@
 @interface ArrowViewController ()<CommunicatorDelegate,CLLocationManagerDelegate>
 {
     double angle;
+    double scale;
 }
 
 @property (strong, nonatomic) CLLocationManager *manager;
@@ -38,55 +39,12 @@
     COMMUNICATOR.delegate = self;
     
     angle = IMPOSSIBLE;
+    scale = 1.0;
     self.lookingForPeopleLabel.text = [NSString stringWithFormat:@"Looking for %@",self.targetPerson];
     
     NSLog(@"%@ is looking for %@",COMMUNICATOR.person,self.targetPerson);
-    
-    /*if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied || [CLLocationManager authorizationStatus] != kCLAuthorizationStatusRestricted)
-    {
-        self.manager = [[CLLocationManager alloc] init];
-        self.manager.delegate = self;
-        
-        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)
-        {
-            [self.manager requestAlwaysAuthorization];
-        }
-        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways)
-        {
-            self.manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
-            //self.manager.headingFilter = kCLHeadingFilterNone;
-            
-            if ([CLLocationManager headingAvailable])
-            {
-                [self.manager startUpdatingHeading];
-            }
-            if ([CLLocationManager locationServicesEnabled])
-            {
-                [self.manager startUpdatingLocation];
-            }
-        }
-    }*/
 }
 
-/*- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
-    CLLocation *location = locations.lastObject;
-    if (self.userLocation)
-    {
-        if (location.horizontalAccuracy < 20 && location.horizontalAccuracy >= 0)
-        {
-            self.userLocation = location;
-            [COMMUNICATOR sendLocation:self.userLocation];
-            [self didUpdateLocations];
-        }
-    }
-    else
-    {
-        self.userLocation = location;
-        [COMMUNICATOR sendLocation:self.userLocation];
-        [self didUpdateLocations];
-    }
-}*/
 - (void)communicator:(Communicator *)communicator didReceiveLocation:(CLLocation *)location fromPerson:(NSString *)person
 {
     // if the location came from our hardware or someone else
@@ -121,36 +79,25 @@
         if (angle != IMPOSSIBLE)
         {
             double newAngle = angle - heading.trueHeading;
-            NSLog(@"heading:%f,angle:%f,angleDiff:%f",heading.trueHeading,angle,newAngle);
-            self.arrowImage.transform = CGAffineTransformMakeRotation(DTOR(newAngle));
+            NSLog(@"heading:%f, angle:%f, angleDiff:%f, scale:%f",heading.trueHeading,angle,newAngle,scale);
+            
+            CGAffineTransform scaleTransform = CGAffineTransformMakeScale(scale, scale);
+            CGAffineTransform rotationTransfrom = CGAffineTransformMakeRotation(DTOR(newAngle));
+            CGAffineTransform transform = CGAffineTransformConcat(rotationTransfrom, scaleTransform);
+            
+            self.arrowImage.transform = transform;
         }
         self.pinImage.transform = CGAffineTransformMakeRotation(DTOR(-heading.trueHeading));
     }
 }
-/*- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
-{
-    if (newHeading.headingAccuracy >= 0)
-    {
-        if (angle != IMPOSSIBLE)
-        {
-            double newAngle = angle - newHeading.trueHeading;
-            NSLog(@"heading:%f,angle:%f,angleDiff:%f",newHeading.trueHeading,angle,newAngle);
-            self.arrowImage.transform = CGAffineTransformMakeRotation(DTOR(newAngle));
-
-            // this way rotates the whole view back to north then moves the arrow to its position
-            //self.arrowImage.transform = CGAffineTransformMakeRotation(DTOR(angle));
-            //self.compassView.transform = CGAffineTransformMakeRotation(DTOR(-newHeading.trueHeading));
-        }
-        self.pinImage.transform = CGAffineTransformMakeRotation(DTOR(-newHeading.trueHeading));
-    }
-}*/
 
 - (void)didUpdateLocations
 {
     if (self.targetLocation && self.userLocation)
     {
+        CLLocationDistance distance = [self.userLocation distanceFromLocation:self.targetLocation];
         // if they are within 10m of each other, hide everything
-        if ([self.userLocation distanceFromLocation:self.targetLocation] <= 10)
+        if (distance <= 10)
         {
             self.lookingForPeopleLabel.text = @"You are within 10m of each other";
             self.lookingForPeopleLabel.hidden = NO;
@@ -170,6 +117,27 @@
                 angle = degrees;
             else
                 angle = 360 + degrees;
+            
+            // setting the size of the arrow based on distance
+            // the market is ~600m long
+            // ok so get the distance between the two points
+            // scale it based on the distance, go between 0.3 and 1
+            float marketMax = 400.f;
+            float marketMin = 30.f;
+            
+            // if we are effectively out of the market
+            if (distance > marketMax)
+                distance = marketMax;
+            else if (distance < marketMin)
+                distance = marketMin;
+            else
+            {
+                // normalise the value
+                scale = (distance - marketMin) / (marketMax - marketMin);
+            }
+            // stopping it from being TOO small
+            if (scale < 0.3)
+                scale = 0.3;
             
             // toggle off the looking for people, toggle on the arrow
             self.lookingForPeopleLabel.text = [NSString stringWithFormat:@"Looking for %@",self.targetPerson];
