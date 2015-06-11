@@ -14,6 +14,8 @@
 		335A7BB71AE0B4F7001AB369 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 335A7BB61AE0B4F7001AB369 /* Images.xcassets */; };
 		335A7BBA1AE0B4F7001AB369 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 335A7BB81AE0B4F7001AB369 /* LaunchScreen.xib */; };
 		335A7BC61AE0B4F7001AB369 /* PrototypeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 335A7BC51AE0B4F7001AB369 /* PrototypeTests.m */; };
+		335C8B261B215AA10020F7BD /* MultiArrowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 335C8B251B215AA10020F7BD /* MultiArrowViewController.m */; };
+		335C8B291B21A3290020F7BD /* ArrowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 335C8B281B21A3290020F7BD /* ArrowTableViewCell.m */; };
 		33D9438F1AE0C71E000D9600 /* PeopleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33D9438E1AE0C71E000D9600 /* PeopleTableViewController.m */; };
 		33D943941AE0C9AF000D9600 /* Communicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 33D943931AE0C9AF000D9600 /* Communicator.m */; };
 		33D9439D1AE0E505000D9600 /* ArrowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33D9439C1AE0E505000D9600 /* ArrowViewController.m */; };
@@ -44,6 +46,10 @@
 		335A7BBF1AE0B4F7001AB369 /* PrototypeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrototypeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		335A7BC41AE0B4F7001AB369 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		335A7BC51AE0B4F7001AB369 /* PrototypeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrototypeTests.m; sourceTree = "<group>"; };
+		335C8B241B215AA10020F7BD /* MultiArrowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiArrowViewController.h; sourceTree = "<group>"; };
+		335C8B251B215AA10020F7BD /* MultiArrowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiArrowViewController.m; sourceTree = "<group>"; };
+		335C8B271B21A3290020F7BD /* ArrowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrowTableViewCell.h; sourceTree = "<group>"; };
+		335C8B281B21A3290020F7BD /* ArrowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrowTableViewCell.m; sourceTree = "<group>"; };
 		33D9438D1AE0C71E000D9600 /* PeopleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeopleTableViewController.h; sourceTree = "<group>"; };
 		33D9438E1AE0C71E000D9600 /* PeopleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeopleTableViewController.m; sourceTree = "<group>"; };
 		33D943921AE0C9AF000D9600 /* Communicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Communicator.h; sourceTree = "<group>"; };
@@ -102,6 +108,10 @@
 				335A7BAD1AE0B4F7001AB369 /* AppDelegate.h */,
 				335A7BAE1AE0B4F7001AB369 /* AppDelegate.m */,
 				335A7BB31AE0B4F7001AB369 /* Main.storyboard */,
+				335C8B271B21A3290020F7BD /* ArrowTableViewCell.h */,
+				335C8B281B21A3290020F7BD /* ArrowTableViewCell.m */,
+				335C8B241B215AA10020F7BD /* MultiArrowViewController.h */,
+				335C8B251B215AA10020F7BD /* MultiArrowViewController.m */,
 				33D9439B1AE0E505000D9600 /* ArrowViewController.h */,
 				33D9439C1AE0E505000D9600 /* ArrowViewController.m */,
 				335A7BB01AE0B4F7001AB369 /* ViewController.h */,
@@ -303,6 +313,8 @@
 				335A7BB21AE0B4F7001AB369 /* ViewController.m in Sources */,
 				335A7BAF1AE0B4F7001AB369 /* AppDelegate.m in Sources */,
 				33D9438F1AE0C71E000D9600 /* PeopleTableViewController.m in Sources */,
+				335C8B261B215AA10020F7BD /* MultiArrowViewController.m in Sources */,
+				335C8B291B21A3290020F7BD /* ArrowTableViewCell.m in Sources */,
 				335A7BAC1AE0B4F7001AB369 /* main.m in Sources */,
 				33D943941AE0C9AF000D9600 /* Communicator.m in Sources */,
 			);

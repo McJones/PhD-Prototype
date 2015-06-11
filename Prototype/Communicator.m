@@ -106,13 +106,19 @@ static Communicator *_sharedCommunicator;
 {
     if (test)
     {
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(sendYBLocation:) userInfo:nil repeats:YES];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(sendTestLocations:) userInfo:nil repeats:YES];
         [self.timer fire];
     }
     else
     {
         [self.timer invalidate];
     }
+}
+- (void)sendTestLocations:(NSTimer *)timer
+{
+    [self sendYBLocation:timer];
+    [self sendNorthLocation:timer];
+    [self sendSouthLocation:timer];
 }
 - (void)sendYBLocation:(NSTimer *)timer
 {
@@ -122,6 +128,24 @@ static Communicator *_sharedCommunicator;
     
     CLLocation *yellowBernard = [[CLLocation alloc] initWithLatitude:targetLat longitude:targetLon];
     [COMMUNICATOR sendLocation:yellowBernard fromPerson:@"Yellow Bernard"];
+}
+- (void)sendNorthLocation:(NSTimer *)timer
+{
+    NSLog(@"Firing North");
+    CGFloat targetLat = -40.0;
+    CGFloat targetLon = 140.0;
+    
+    CLLocation *yellowBernard = [[CLLocation alloc] initWithLatitude:targetLat longitude:targetLon];
+    [COMMUNICATOR sendLocation:yellowBernard fromPerson:@"North"];
+}
+- (void)sendSouthLocation:(NSTimer *)timer
+{
+    NSLog(@"Firing South");
+    CGFloat targetLat = -44.0;
+    CGFloat targetLon = 140.0;
+    
+    CLLocation *yellowBernard = [[CLLocation alloc] initWithLatitude:targetLat longitude:targetLon];
+    [COMMUNICATOR sendLocation:yellowBernard fromPerson:@"South"];
 }
 
 - (void)sendLocation:(CLLocation *)location

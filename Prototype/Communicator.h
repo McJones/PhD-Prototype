@@ -12,6 +12,8 @@
 
 #define APP_DELEGATE ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 #define COMMUNICATOR [Communicator sharedCommunicator]
+#define DTOR(degrees) (M_PI * degrees / 180.0)
+#define RTOD(radians) (radians * 180.0 / M_PI)
 
 @class Communicator;
 @protocol CommunicatorDelegate <NSObject>
