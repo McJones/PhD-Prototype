@@ -7,7 +7,7 @@ Technically it points to other people using the app, but eh that sounds dull.
 All three versions of the prototype are included, each one a different commit because why not? I was busy, don't judge.
 
 ##Details
-Ok so it uses CoreLocation to get a currentl location, this location is then sent out over the PubNub stream to every other device running the prototype.
+Ok so it uses CoreLocation to get a current location, this location is then sent out over the PubNub stream to every other device running the prototype.
 
 When the app receives the location from the target it uses great circle mapping to determine the heading to point to that location, assuming the phone is facing north.
 
